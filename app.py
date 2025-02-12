@@ -105,6 +105,10 @@ chat_response = client.chat.complete(
     model = model,
     messages = [
         {
+            "role": "system",
+            "content": "System prompt needs to be index 0 in this list of objects",
+        },
+        {
             "role": "user",
             "content": "What is the best French cheese?",
         },
@@ -116,7 +120,6 @@ print(chat_response.choices[0].message.content)
     line_numbers = True,
     wrap_lines = True
     )
-
 
 
     st.markdown('__Anthropic__')
@@ -135,8 +138,18 @@ message = client.messages.create(
     model="claude-3-5-sonnet-20240620",
     max_tokens=8192,
     temperature=0,
-    system="Your system prompt here",
-    messages=[]
+    system="This takes a string as the system prompt",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Say this is a test"
+                }
+            ]
+        }
+    ]
 )
 print(message.content)
 ''',
